@@ -2,8 +2,51 @@ import streamlit as st
 from openai import OpenAI
 import json
 
-with open("style.css") as f:
-    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+st.markdown('''
+        <style>
+            .flex{
+                display:flex;
+            }
+
+            .italic{
+                color:rgb(107, 106, 104);
+                font-style: italic;
+            }
+
+            .header{
+                border-radius: 10px;
+                background-color: blueviolet;
+                text-align: center;
+                color: white;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            }
+
+            .center{
+                text-align: center;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                background-color: blueviolet;
+                color: white;
+            }
+
+            .card{
+                margin: 10px;
+                border: solid 1px;
+            }
+
+            .title{
+                font-size: 20px;
+                font-weight: bold;
+                border-bottom: solid 1px;
+                margin: auto;
+            }
+
+            .justify{
+                text-align: justify;
+                margin:10px;
+            }
+        </style>
+            ''')
 
 client = OpenAI()
 

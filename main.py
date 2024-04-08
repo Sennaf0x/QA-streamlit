@@ -46,7 +46,7 @@ st.markdown('''
                 margin:10px;
             }
         </style>
-            ''')
+            ''', unsafe_allow_html=True)
 
 client = OpenAI()
 

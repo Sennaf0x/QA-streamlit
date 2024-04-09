@@ -58,26 +58,38 @@ def ask_openai(mensagem):
     
     else: 
         completion = client.chat.completions.create(
-            model="ft:gpt-3.5-turbo-0613:personal:cb-etech:8ZwbruP2",
+            model="gpt-3.5-turbo",
             
                 messages=[
-                    {
-                    "role": "system",
-                    "content": ''' 
-                                Você é um analista de QA e irá reescrever o caso de teste no campo <caso>, qual seria o cenário de teste, de maneira resumida, em <cenario> e o risco atraledos em <riscos> utilizando o seguinte exemplo como se fosse um arquivo json: 
-                                {
-                                 "caso": "<caso>",
-                                 "cenario":"<cenario>",
-                                 "riscos": "<riscos>"
-                                }
-                               '''},
-                    {
-                    "role": "user",
-                    "content": mensagem
+                        {
+                            "role": "system",
+                            "content": f''' 
+                                        Reescreva o caso de teste e dê 3 exemplos como se fosse um analista da qualidade de software senior:
+
+                                        Caso de teste: {mensagem}
+                                       '''
+                        },
+                        {
+                            "role": "user",
+                            "content": '''
+                                        1. Reescrever de maneria diferente e técnica o caso de teste enviado dando 3 opções e enumerando eles no no campo <caso>
+                                        2. Estipular o cenário de teste, de maneira resumida, e inseri-lo em <cenario> 
+                                        3. Estipular os riscos atraledos em <riscos>
+                                        4. Os passos no padrão gherkin para o caso de teste submetido, inserido em <gherkin>
+                                        5. Não exiba os caracteres de quebra de linha
+
+                                        Utilize o seguinte exemplo para exibir a resposta como se fosse um arquivo json: 
+                                        {
+                                         "caso": "<caso>",
+                                         "cenario":"<cenario>",
+                                         "riscos": "<riscos>",
+                                         "gherkin":"<gherkin>"
+                                        }
+                                       '''
                     }
                 ],
                 temperature=1,
-                max_tokens=200,
+                max_tokens=500,
                 top_p=1,
                 frequency_penalty=0,
                 presence_penalty=0
@@ -122,7 +134,15 @@ with st.container():
                             <p>Risco relacionado...</p>
                         </div>
                     </div>               
-                </div>   
+                    <div class="card">    
+                        <div class="center">
+                            <p class="title">GHERKIN</p>
+                        </div>
+                        <div class="justify italic">
+                            <p>Passos</p>
+                        </div>
+                    </div>               
+                    </div>   
                 ''', unsafe_allow_html=True)
     else:
         resposta = ask_openai(mensagem)
@@ -152,6 +172,14 @@ with st.container():
                             </div>
                             <div class="justify">
                                 <p>{json.dumps(resposta["riscos"], ensure_ascii=False)}</p>
+                            </div>
+                        </div>               
+                        <div>    
+                            <div class="center">
+                                <p class="title">RISCOS RELACIONADOS</p>
+                            </div>
+                            <div class="justify">
+                                <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>
                             </div>
                         </div>               
                     </div>   

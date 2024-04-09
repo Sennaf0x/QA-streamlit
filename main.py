@@ -176,7 +176,7 @@ with st.container():
                         </div>               
                         <div>    
                             <div class="center">
-                                <p class="title">RISCOS RELACIONADOS</p>
+                                <p class="title">GHERKIN</p>
                             </div>
                             <div class="justify">
                                 <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>

@@ -63,40 +63,46 @@ with st.container():
     st.write('''
              <h1 class="header">Reescreva os casos de testes</h1>
              ''', unsafe_allow_html=True)
-    mensagem = st.text_input("Digite aqui o caso de teste:")
+    mensagem = st.text_input("Digite aqui o caso de teste:", label_visibility="hidden")
+    st.write('''
+             <p class="letra">Digite aqui o caso de teste</p>
+             ''',unsafe_allow_html=True)
+    
     if (mensagem == ""):
         st.write('''
                 <div>
-                    <div class="card">
-                        <div class="center">
-                            <p class="title">CASO DE TESTE</p>
+                    <div class="main">
+                        <div class="card">
+                            <div class="center">
+                                <p class="title">CASO DE TESTE</p>
+                            </div>
+                            <div class="justify italic">
+                                <p>Caso de teste reescrito...</p>
+                            </div>
                         </div>
-                        <div class="justify italic">
-                            <p>Caso de teste reescrito...</p>
+                        <div class="card">
+                            <div class="center">
+                                <p class="title">CENÁRIO DE TESTE </p>
+                            </div>
+                            <div class="justify italic">
+                                <p>Cenário de teste...</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="center">
-                            <p class="title">CENÁRIO DE TESTE </p>
-                        </div>
-                        <div class="justify italic">
-                            <p>Cenário de teste...</p>
-                        </div>
-                    </div>
-                    <div class="card">    
-                        <div class="center">
-                            <p class="title">RISCOS RELACIONADOS</p>
-                        </div>
-                        <div class="justify italic">
-                            <p>Risco relacionado...</p>
-                        </div>
-                    </div>               
-                    <div class="card">    
+                    <div class="card-2">    
                         <div class="center">
                             <p class="title">GHERKIN</p>
                         </div>
                         <div class="justify italic">
                             <p>Passos</p>
+                        </div>
+                    </div>               
+                    <div class="card-2">    
+                        <div class="center">
+                            <p class="title">RISCOS RELACIONADOS</p>
+                        </div>
+                        <div class="justify italic">
+                            <p>Risco relacionado...</p>
                         </div>
                     </div>               
                     </div>   
@@ -106,8 +112,9 @@ with st.container():
 
         with st.container():
             st.write(f'''
-                    <div class="card">
-                        <div>
+                    <div>
+                    <div class="main">
+                        <div class="card">
                             <div class="center">
                                 <p class="title">CASO DE TESTE</p>
                             </div>
@@ -115,7 +122,7 @@ with st.container():
                                 <p>{json.dumps(resposta["caso"], ensure_ascii=False)}</p>
                             </div>
                         </div>
-                        <div>
+                        <div class="card">
                             <div class="center">
                                 <p class="title">CENÁRIO DE TESTE </p>
                             </div>
@@ -123,21 +130,25 @@ with st.container():
                                 <p>{json.dumps(resposta["cenario"], ensure_ascii=False)}</p>
                             </div>
                         </div>
-                        <div>    
+                    </div>
+                    <div>
+                        <div class="card-2">    
+                            <div class="center">
+                                <p class="title">GHERKIN</p>
+                            </div>
+                            <div class="justify">
+                                <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>
+                            </div>
+                        </div>               
+                        <div class="card-2">    
                             <div class="center">
                                 <p class="title">RISCOS RELACIONADOS</p>
                             </div>
                             <div class="justify">
                                 <p>{json.dumps(resposta["riscos"], ensure_ascii=False)}</p>
                             </div>
-                        </div>               
-                        <div>    
-                            <div class="center">
-                                <p class="title">RISCOS RELACIONADOS</p>
-                            </div>
-                            <div class="justify">
-                                <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>
-                            </div>
-                        </div>               
-                    </div>   
+                        </div>
+                    <div>               
+                    </div>
                     ''', unsafe_allow_html=True)
+            

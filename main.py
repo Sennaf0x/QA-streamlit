@@ -5,42 +5,74 @@ import json
 
 st.markdown('''
         <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing: border-box;
+            }
+            
+            .letra{
+                color:white;
+            }
+            
+            .block-container{
+                background-color: #611C8F;
+            }
+            
             .flex{
                 display:flex;
             }
-
+            
+            .main{
+                display:flex;
+                margin: auto;
+            }
+            
             .italic{
                 color:rgb(107, 106, 104);
                 font-style: italic;
             }
-
+            
             .header{
                 border-radius: 10px;
-                background-color: blueviolet;
+                background-color: #EE039C;
                 text-align: center;
                 color: white;
                 box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
             }
-
+            
             .center{
                 text-align: center;
                 box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-                background-color: blueviolet;
+                border-radius: 10px 10px 0 0;
+                background-color: #EE039C;
                 color: white;
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
             }
-
+            
             .card{
                 margin: 10px;
                 border: solid 1px;
+                background-color: aliceblue;
+                width: 100%;
+                height: 200px;
+                border-radius: 10px;
             }
-
-            .title{
+            .card-2{
+                margin: 10px;
+                border: solid 1px;
+                border-radius: 10px;
+                width: 100%;
+                background-color: aliceblue;
+            }
+            
+            .title{ 
                 font-size: 20px;
                 font-weight: bold;
                 border-bottom: solid 1px;
                 margin: auto;
             }
-
+            
             .justify{
                 text-align: justify;
                 margin:10px;

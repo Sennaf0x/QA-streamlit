@@ -70,3 +70,9 @@
     text-align: justify;
     margin:10px;
 }
+
+@media (max-width: 400px) {
+    .title{
+        font-size: 12px;
+    }
+  }

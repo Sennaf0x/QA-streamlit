@@ -191,7 +191,7 @@ with st.container():
     else:
         resposta = ask_openai(mensagem)
 
-with st.container():
+    with st.container():
         st.write(f'''
                 <div>
                 <div class="main">

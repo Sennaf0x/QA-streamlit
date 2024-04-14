@@ -191,45 +191,45 @@ with st.container():
     else:
         resposta = ask_openai(mensagem)
 
-    with st.container():
-        st.write(f'''
-                <div>
-                <div class="main">
-                    <div class="card">
-                        <div class="center">
-                            <p class="title">CASO DE TESTE</p>
+        with st.container():
+            st.write(f'''
+                    <div>
+                    <div class="main">
+                        <div class="card">
+                            <div class="center">
+                                <p class="title">CASO DE TESTE</p>
+                            </div>
+                            <div class="justify">
+                                <p>{json.dumps(resposta["caso"], ensure_ascii=False)}</p>
+                            </div>
                         </div>
-                        <div class="justify">
-                            <p>{json.dumps(resposta["caso"], ensure_ascii=False)}</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="center">
-                            <p class="title">CENÁRIO DE TESTE </p>
-                        </div>
-                        <div class="justify">
-                            <p>{json.dumps(resposta["cenario"], ensure_ascii=False)}</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card-2">    
-                        <div class="center">
-                            <p class="title">GHERKIN</p>
-                        </div>
-                        <div class="justify">
-                            <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>
-                        </div>
-                    </div>               
-                    <div class="card-2">    
-                        <div class="center">
-                            <p class="title">RISCOS RELACIONADOS</p>
-                        </div>
-                        <div class="justify">
-                            <p>{json.dumps(resposta["riscos"], ensure_ascii=False)}</p>
+                        <div class="card">
+                            <div class="center">
+                                <p class="title">CENÁRIO DE TESTE </p>
+                            </div>
+                            <div class="justify">
+                                <p>{json.dumps(resposta["cenario"], ensure_ascii=False)}</p>
+                            </div>
                         </div>
                     </div>
-                <div>               
-                </div>
-                ''', unsafe_allow_html=True)
-        
+                    <div>
+                        <div class="card-2">    
+                            <div class="center">
+                                <p class="title">GHERKIN</p>
+                            </div>
+                            <div class="justify">
+                                <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>
+                            </div>
+                        </div>               
+                        <div class="card-2">    
+                            <div class="center">
+                                <p class="title">RISCOS RELACIONADOS</p>
+                            </div>
+                            <div class="justify">
+                                <p>{json.dumps(resposta["riscos"], ensure_ascii=False)}</p>
+                            </div>
+                        </div>
+                    <div>               
+                    </div>
+                    ''', unsafe_allow_html=True)
+            

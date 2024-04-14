@@ -77,6 +77,12 @@ st.markdown('''
                 text-align: justify;
                 margin:10px;
             }
+            @media (max-width: 400px) {
+                .title{
+                    font-size: 12px;
+                }
+            }
+            
         </style>
             ''', unsafe_allow_html=True)
 

@@ -32,15 +32,16 @@ def ask_openai(mensagem):
                                         1. Reescrever de maneria diferente e técnica o caso de teste enviado dando 3 opções e enumerando eles no no campo <caso>
                                         2. Estipular o cenário de teste, de maneira resumida, e inseri-lo em <cenario> 
                                         3. Estipular os riscos atraledos em <riscos>
-                                        4. Os passos no padrão gherkin para o caso de teste submetido, inserido em <gherkin>
-                                        5. Não exiba os caracteres de quebra de linha
+                                        4. Escrever pre-condições para realizar o teste em <precondicoes>
+                                        5. Os passos no padrão gherkin para o caso de teste submetido, inserido em <gherkin>
 
                                         Utilize o seguinte exemplo para exibir a resposta como se fosse um arquivo json: 
                                         {
                                          "caso": "<caso>",
                                          "cenario":"<cenario>",
                                          "riscos": "<riscos>",
-                                         "gherkin":"<gherkin>"
+                                         "gherkin":"<gherkin>",
+                                         "precondicoes":"<precondicoes>"
                                         }
                                        '''
                     }

@@ -227,7 +227,7 @@ with col1:
                                 </div>
                             </div>
                         </div>''', unsafe_allow_html=True)
-            with st.container(height=300):
+            with st.container(height=400):
                     st.write(f'''
                             <div> 
                                 <div class="main-2">

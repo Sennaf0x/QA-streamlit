@@ -159,7 +159,7 @@ with col1:
                 ''',unsafe_allow_html=True)
         
         if (mensagem == ""):
-                with st.container(height=150,border=None):   
+                with st.container(height=150): 
                     st.write('''
                         <div>
                             <div class="main">

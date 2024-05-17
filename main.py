@@ -26,12 +26,14 @@ st.markdown('''
                 display:flex;
             }
             
-            .main{
+            .main-1{
                 display:flex;
+                height: 200px;
                 margin: 10px;
             }
             .main-2{
                 display:grid;
+                heoght: 200px;
                 margin: 15px;
             }
             
@@ -97,160 +99,169 @@ st.markdown('''
 
 client = OpenAI()
 
+resposta =''
+mensagem=''
+
 def ask_openai(mensagem):
     
-    if(mensagem == ""):
-        resposta = "Como posso ajudá-lo?"
-        return resposta
-    
-    else: 
+    if mensagem.strip() == "":
+        return "Como posso ajudá-lo?"
+
+    try:
         completion = client.chat.completions.create(
             model="gpt-4-turbo",
-            
-                messages=[
-                        {
-                            "role": "system",
-                            "content": f''' 
-                                        Reescreva o caso de teste e dê 3 exemplos como se fosse um analista da qualidade de software senior:
-
-                                        Caso de teste: {mensagem}
-                                       '''
-                        },
-                        {
-                            "role": "user",
-                            "content": '''
-                                        1. Reescrever de maneria diferente e técnica o <caso de teste> enviado dando 3 opções e enumerando eles no no campo <caso>                                         
-                                        2. Estipular o cenário de teste, de maneira resumida, e inseri-lo em <cenario>                                          
-                                        3. Estipular os riscos atraledos em <riscos>                                        
-                                        4. Os passos no padrão gherkin para o caso de teste submetido, inserido em <gherkin>                                     
-                                        5. Não exiba os caracteres de quebra de linha(\n)                                          
-                                        Utilize o seguinte exemplo para exibir a resposta como se fosse um arquivo json:                                          
-                                            {                                         
-                                                "caso": "<caso>",                                          
-                                                "cenario":"<cenario>",
-                                                "riscos": "<riscos>",                                          
-                                                "gherkin":"<gherkin>"
-                                            }
-                                       '''
-                    }
-                ],
-                temperature=1,
-                max_tokens=1000,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0
-                )
-            
+            messages=[
+                {
+                    "role": "system",
+                    "content": (f'''
+                                Reescreva o caso de teste e dê 3 exemplos como se fosse um analista da qualidade de software sênior:\n\n
+                                Caso de teste: {mensagem}
+                                '''
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": ('''
+                        1. Reescrever de maneira diferente e técnica o <caso>.\n
+                        2. Estipular o cenário de teste, de maneira resumida.\n
+                        3. Estipular os riscos atraledos.\n
+                        4. Os passos no padrão gherkin para o caso de teste submetido.\n
+                        5. Não exiba os caracteres de quebra de linha(\\n).\n\n
+                        Utilize o seguinte exemplo para exibir a resposta como se fosse um arquivo json:\n
+                        {\n
+                        '  "caso:" "<caso>",\n'
+                        '  "cenario":"<cenario>",\n'
+                        '  "riscos": "<riscos>",\n'
+                        '  "gherkin":"<gherkin>"\n'
+                        "}
+                        '''
+                    )
+                }
+            ],
+            temperature=1,
+            max_tokens=1000,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        
         answer = completion.choices[0].message.content
         resposta_json = json.loads(answer)
-        print("resposta json: ", resposta_json)
+        print("Resposta JSON:", resposta_json)
         return resposta_json
+    
+    except json.JSONDecodeError as e:
+        print(f"Erro ao decodificar JSON: {e}")
+        return None
+    except Exception as e:
+        print(f"Erro inesperado: {e}")
+        return None
 
-
-
-with col1:    
-    with st.container():
-        st.write('''
-                <h1 class="header">Reescreva os casos de testes</h1>
-                ''', unsafe_allow_html=True)
-        mensagem = st.text_input("Digite aqui o caso de teste:", label_visibility="hidden")
-        st.write('''
-                <p class="letra">Digite aqui o caso de teste</p>
-                ''',unsafe_allow_html=True)
-        
-        if (mensagem == ""):
-                with st.container(height=150):
-                    st.write('''
-                        <div>
-                            <div class="main">
-                                <div class="card">
+if (resposta == None):
+    reposta = ask_openai(mensagem)
+else:
+    
+    with col1:    
+        with st.container():
+            st.write('''
+                    <h1 class="header">Reescreva os casos de testes</h1>
+                    ''', unsafe_allow_html=True)
+            mensagem = st.text_input("Digite aqui o caso de teste:", label_visibility="hidden")
+            st.write('''
+                    <p class="letra">Digite aqui o caso de teste</p>
+                    ''',unsafe_allow_html=True)
+            
+            if (mensagem == ""):
+                    with st.container():
+                        st.write('''
+                            <div>
+                                <div class="main-1">
+                                    <div class="card">
+                                        <div class="center">
+                                            <p class="title">CASO DE TESTE</p>
+                                        </div>
+                                        <div class="justify italic">
+                                            <p>Caso de teste reescrito...</p>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="center">
+                                            <p class="title">CENÁRIO DE TESTE </p>
+                                        </div>
+                                        <div class="justify italic">
+                                            <p>Cenário de teste...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>''',unsafe_allow_html=True)
+                    with st.container():    
+                        st.write('''
+                            <div class="main-2">
+                                <div class="card-2">    
                                     <div class="center">
-                                        <p class="title">CASO DE TESTE</p>
+                                        <p class="title">GHERKIN</p>
                                     </div>
                                     <div class="justify italic">
-                                        <p>Caso de teste reescrito...</p>
+                                        <p>Passos...</p>
                                     </div>
-                                </div>
-                                <div class="card">
+                                </div>               
+                                <div class="card-2">    
                                     <div class="center">
-                                        <p class="title">CENÁRIO DE TESTE </p>
+                                        <p class="title">RISCOS RELACIONADOS</p>
                                     </div>
                                     <div class="justify italic">
-                                        <p>Cenário de teste...</p>
+                                        <p>Risco relacionado...</p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>''',unsafe_allow_html=True)
-                with st.container(height=300):    
-                    st.write('''
-                        <div class="main-2">
-                            <div class="card-2">    
-                                <div class="center">
-                                    <p class="title">GHERKIN</p>
-                                </div>
-                                <div class="justify italic">
-                                    <p>Passos</p>
-                                </div>
-                            </div>               
-                            <div class="card-2">    
-                                <div class="center">
-                                    <p class="title">RISCOS RELACIONADOS</p>
-                                </div>
-                                <div class="justify italic">
-                                    <p>Risco relacionado...</p>
-                                </div>
-                            </div>               
-                        </div>   
-                        ''', unsafe_allow_html=True)
-        
-        else:
-            resposta = ask_openai(mensagem)
-            with st.container(height=275):
-                st.write(f'''
-                        <div>
-                            <div class="main">
-                                <div class="card">
-                                    <div class="center">
-                                        <p class="title">CASO DE TESTE</p>
-                                    </div>
-                                    <div class="justify">
-                                        <p>{json.dumps(resposta["caso"], ensure_ascii=False)}</p>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="center">
-                                        <p class="title">CENÁRIO DE TESTE </p>
-                                    </div>
-                                    <div class="justify">
-                                        <p>{json.dumps(resposta["cenario"], ensure_ascii=False)}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>''', unsafe_allow_html=True)
-            with st.container(height=400):
+                                </div>               
+                            </div>   
+                            ''', unsafe_allow_html=True)
+            
+            else:
+                resposta = ask_openai(mensagem)
+                with st.container():
                     st.write(f'''
-                            <div> 
-                                <div class="main-2">
-                                    <div class="card-2">    
+                            <div>
+                                <div class="main-1">
+                                    <div class="card">
                                         <div class="center">
-                                            <p class="title">GHERKIN</p>
+                                            <p class="title">CASO DE TESTE</p>
                                         </div>
                                         <div class="justify">
-                                            <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>
-                                        </div>
-                                    </div>               
-                                    <div class="card-2">    
-                                        <div class="center">
-                                            <p class="title">RISCOS RELACIONADOS</p>
-                                        </div>
-                                        <div class="justify">
-                                            <p>{json.dumps(resposta["riscos"], ensure_ascii=False)}</p>
+                                            <p>{json.dumps(resposta["caso"], ensure_ascii=False)}</p>
                                         </div>
                                     </div>
-                                    <div>               
+                                    <div class="card">
+                                        <div class="center">
+                                            <p class="title">CENÁRIO DE TESTE </p>
+                                        </div>
+                                        <div class="justify">
+                                            <p>{json.dumps(resposta["cenario"], ensure_ascii=False)}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                        ''', unsafe_allow_html=True)
+                            </div>''', unsafe_allow_html=True)
+                with st.container():
+                        st.write(f'''
+                                    <div> 
+                                        <div class="main-2">
+                                            <div class="card-2">    
+                                                <div class="center">
+                                                    <p class="title">GHERKIN</p>
+                                                </div>
+                                                <div class="justify">
+                                                    <p>{json.dumps(resposta['gherkin'], ensure_ascii=False)}</p>
+                                                </div>
+                                            </div>               
+                                            <div class="card-2">    
+                                                <div class="center">
+                                                    <p class="title">RISCOS RELACIONADOS</p>
+                                                </div>
+                                                <div class="justify">
+                                                    <p>{json.dumps(resposta["riscos"], ensure_ascii=False)}</p>
+                                                </div>
+                                            </div>
+                                            <div>               
+                                        </div>
+                                    </div>''', unsafe_allow_html=True)
 with col2:
     st.write('<h1 class="header">Área da tabela</h1>',unsafe_allow_html=True)        

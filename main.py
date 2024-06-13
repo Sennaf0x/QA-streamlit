@@ -4,6 +4,7 @@ from openai import OpenAI
 import json
 import os
 
+
 st.set_page_config(layout="wide")
 
 # Inicialize o DataFrame na sessão
@@ -131,9 +132,7 @@ def ask_openai(mensagem):
                 {
                     "role": "system",
                     "content": (f'''
-                                    Reescreva o caso de teste e dê 3 exemplos como se fosse um analista da qualidade 
-                                    de software sênior:
-                                    Caso de teste: {mensagem}
+                                    leia o arquivo upado e construa um dataframe como resposta
                                 '''
                                 )
                 },
@@ -153,7 +152,6 @@ def ask_openai(mensagem):
                                     "gherkin": "<gherkin>"
                                     }
                                 '''
-
                         )
 
                 }
@@ -169,7 +167,7 @@ def ask_openai(mensagem):
             )
         
         answer = completion.choices[0].message.content
-        resposta_json = json.loads(answer.replace('\\n', ''))
+        resposta_json = json.loads(answer)
         return resposta_json
     
     except json.JSONDecodeError as e:

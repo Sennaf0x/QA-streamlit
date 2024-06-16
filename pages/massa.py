@@ -89,6 +89,7 @@ st.markdown('''
                 .imagem{
                     border-radius: 15px;
                     border: solid 2px #EE039C;
+                    width: 80%;
                     box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
                 }
                 .center{
@@ -132,9 +133,75 @@ st.markdown('''
                     text-align: center;
                 }
                 
-                @media (max-width: 400px) {
+                .st-emotion-cache-l9bjmx{
+                    margin: 10px 0;
+                    padding: 10px;
+                    color: white;
+                    border: solid 2px #EE039C;
+                    border-radius: 10px;
+                    background-color: 611C8F;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
+                }
+                
+                .e1b2p2ww15{
+                    background-color: #EE039C;
+                }
+                .ef3psqc12{
+                    background-color: #611C8F;
+                    color: white;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #611C8F 0px 3px 6px;
+                    border: solid 1px #EE039C; 
+                }
+                
+                .ef3psqc12:hover{
+                    background-color: #EE039C;
+                    color: white;
+                    box-shadow: #611C8F 0px -30px 16px -10px inset;
+                    border: solid 1px #611C8F;
+                }
+                
+                .ef3psqc7{
+                    background-color: #611C8F;
+                    color: white;
+                    border: solid 1px #EE039C;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
+                }
+                
+                .ef3psqc7:hover{
+                    background-color: #EE039C;
+                    color: white;
+                    box-shadow: #611C8F 0px -30px 16px -10px inset;
+                    border: solid 1px #EE039C;
+                }
+                
+                .eczjsme5{
+                    color:white;
+                }
+                
+                .eczjsme6{
+                    margin: 10px;
+                    background-color: #611C8F;
+                    color: white;
+                    border: solid 1px #EE039C;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #611C8F 0px 3px 6px;
+                }
+                
+                .eczjsme3{
+                    background-color: #EE039C;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
+                        
+                }
+                
+                @media (max-width: 500px) {
+                    
                     .title{
                         font-size: 12px;
+                    }
+                    .imagem{
+                        border-radius: 15px;
+                        width: 80%;
+                        border: solid 2px #EE039C;
+                        box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
                     }
                 }
                 </style>
@@ -199,7 +266,7 @@ with col1:
     with st.container():
         with st.form(key='revisar_casos_form'):
             st.write('''<h1 class="header">Faça o upload dos casos de testes</h1>''', unsafe_allow_html=True)
-            dados = st.file_uploader("Insira o arquivo aqui:", type=["xlsx"])
+            dados = st.file_uploader("Insira o arquivo abaixo:", type=["xlsx"])
             
             submit_button = st.form_submit_button(label='Submeter')
 

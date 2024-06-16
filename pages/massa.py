@@ -17,7 +17,6 @@ if 'df' not in st.session_state:
 
 if 'resposta' not in st.session_state:
     st.session_state.resposta = pd.DataFrame(columns=["Caso de tese", "Descrição", "Gherkin"])
-    df_novo=pd.DataFrame(columns=["Teste", "Descrição", "Gherkin"])
 
     
 
@@ -68,13 +67,25 @@ st.markdown('''
                 
 
                 .header{
+                    font-size: 25px;
                     border-radius: 10px;
                     background-color: #EE039C;
                     text-align: center;
                     color: white;
                     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
                 }
-        
+
+                .mag{
+                    margin: 15px auto;
+                }
+                
+                .mag-auto{
+                    margin: 0px auto;
+                    align-items: center;
+                }
+                .imagem{
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, #EE039C 0px 3px 6px;;
+                }
                 .center{
                     text-align: center;
                     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -193,13 +204,17 @@ with col1:
             json_df = df.to_json(orient='records',force_ascii=False,lines=True)
             resposta = ask_openai(json_df)
             resposta = resposta.replace('<','').replace('>','').strip()
-            print(f"Resposta do chat: {resposta}")
+            st.session_state.resposta = resposta
+            print(f"Resposta do chat: {st.session_state.resposta}")
             #json_resposta = json.loads(resposta).replace('\n','').replace('[','').replace(']','')
             #print(f"json_resposta: {json_resposta}")
             
 with col2:
     with st.container():
-        st.write('''<h1 class="header">Faça o upload dos casos de testes</h1>''', unsafe_allow_html=True)
-        df_novo = pd.read_json(resposta)
-        st.dataframe(df_novo)        
-    
+        img_path = "https://ibb.co/WgDQ1Fb"
+        st.write('''<h1 class="header mag">Planilha preenchida</h1>
+                    <div class="mag-auto" ><img class ="imagem" src="https://i.ibb.co/MM8bLpY/sem-planilha.png" alt="sem-planilha" border="0" /></div>
+                 ''', unsafe_allow_html=True)
+        if not resposta == '':
+            df_novo = pd.read_json(st.session_state.resposta)
+            st.dataframe(df_novo)      

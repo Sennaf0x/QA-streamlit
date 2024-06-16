@@ -80,11 +80,16 @@ st.markdown('''
                 }
                 
                 .mag-auto{
-                    margin: 0px auto;
+                    display: flex;
+                    justify-content: center; 
                     align-items: center;
+                    width: 100%; 
+                    margin: 0px auto;
                 }
                 .imagem{
-                    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, #EE039C 0px 3px 6px;;
+                    border-radius: 15px;
+                    border: solid 2px #EE039C;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
                 }
                 .center{
                     text-align: center;
@@ -211,10 +216,15 @@ with col1:
             
 with col2:
     with st.container():
-        img_path = "https://ibb.co/WgDQ1Fb"
-        st.write('''<h1 class="header mag">Planilha preenchida</h1>
-                    <div class="mag-auto" ><img class ="imagem" src="https://i.ibb.co/MM8bLpY/sem-planilha.png" alt="sem-planilha" border="0" /></div>
-                 ''', unsafe_allow_html=True)
-        if not resposta == '':
+        if resposta == '':
+            img_path = "https://ibb.co/WgDQ1Fb"
+            st.write('''<h1 class="header mag">Planilha preenchida</h1>
+                        <div class="mag-auto" >
+                            <img class ="imagem" src="https://i.ibb.co/MM8bLpY/sem-planilha.png" alt="sem-planilha" border="0" />
+                        </div>
+                    ''', unsafe_allow_html=True)
+        else:
+            st.write('''<h1 class="header mag">Planilha preenchida</h1>
+                    ''', unsafe_allow_html=True)
             df_novo = pd.read_json(st.session_state.resposta)
             st.dataframe(df_novo)      

@@ -230,12 +230,17 @@ def ask_openai(mensagem):
                 {
                     "role": "user",
                     "content": (f'''
-                                    Leia os casos de teste da planilha {mensagem} e crie novas colunas.
-                                    'casos de teste' = utilizar o mesmo caso de teste da planilha. 
-                                    'descrição' = Estipular o cenário de teste, de maneira resumida.
-                                    'gherkin' = Os passos no padrão gherkin para o caso de teste submetido.
-                                    Utilize o seguinte exemplo para exibir a resposta como se fosse um arquivo json:
-                                    ['<caso de teste>':'casos de teste','<descrição>':'descrição','<gherkin>':'gherkin']
+                                    Leia os casos de teste da planilha {mensagem} e crie uma resposta em json pra cada linha da planilha conforme o exemplo abaixo.
+                                    ['<caso de teste>':'caso de teste',
+                                     '<Descrição>':'Descrição',
+                                     '<gherkin>':'Given 
+                                                  When 
+                                                  Then']
+                                    
+                                    onde: 
+                                    'caso de teste' = Caso de teste da planilha
+                                    'Descrição' = Descrição exata da planilha
+                                    'gherkin' = O passo a passo no padrão gherkin para o caso de teste da planilha.
                                 ''')
                 }
             ],
@@ -275,7 +280,7 @@ with col1:
             st.dataframe(df)
             json_df = df.to_json(orient='records',force_ascii=False,lines=True)
             resposta = ask_openai(json_df)
-            resposta = resposta.replace('<','').replace('>','').strip()
+            #resposta = resposta.replace('<','').replace('>','',',').strip()
             st.session_state.resposta = resposta
             print(f"Resposta do chat: {st.session_state.resposta}")
             #json_resposta = json.loads(resposta).replace('\n','').replace('[','').replace(']','')

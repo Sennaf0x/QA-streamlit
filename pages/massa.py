@@ -232,14 +232,12 @@ def ask_openai(mensagem):
                     "content": (f'''
                                     Leia os casos de teste da planilha {mensagem} e crie uma resposta em json pra cada linha da planilha conforme o exemplo abaixo.
                                     ['<caso de teste>':'caso de teste',
-                                     '<Descrição>':'Descrição',
                                      '<gherkin>':'Given 
                                                   When 
                                                   Then']
                                     
                                     onde: 
                                     'caso de teste' = Caso de teste da planilha
-                                    'Descrição' = Descrição exata da planilha
                                     'gherkin' = O passo a passo no padrão gherkin para o caso de teste da planilha.
                                 ''')
                 }

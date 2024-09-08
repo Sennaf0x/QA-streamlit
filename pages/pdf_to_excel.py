@@ -53,22 +53,17 @@ with st.form(key='Texto para csv'):
         dados3 = []
         
         range2 = len(dados1)
+        
         while k < range2:
-            if k < len(dados1) and dados1[k].count('*') == 2:
-                if dados3:  # Verifique se há itens na lista dados3
-                    dados3.insert(len(dados3) - 1, dados1[k])
+            if dados1[k].count('*') == 2:
+                    dados3.insert(len(dados3) - 2, dados1[k])
                     k +=1
-                else:  # Se a lista estiver vazia, apenas insere normalmente
-                    dados3.append(dados1[k])
-                    dados2.append("")
+            else:  
+                    dados2.append(dados1[k])
+                    dados3.append("")
                     k += 1
-            else:
-                dados2.append(dados1[k] if k < len(dados1) else "")
-                dados3.append("")
-                k += 1
 
         w = 0
-        
         dados4 = []
         
         while w < len(dados2):

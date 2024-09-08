@@ -14,16 +14,17 @@ with st.form(key='Texto para csv'):
     
     submit_button = st.form_submit_button(label='Submeter')
     if submit_button:
+        # Tratando dados do mindmap
+        
         dados_df = pd.DataFrame(data, index=[0])
-        dados_df = dados_df["texto"].str.split("1.",expand=True)
+        dados_df = dados_df["texto"].str.split(r'(?<!\d)1\.',expand=True)
         dados_df = dados_df.transpose()
         dados_df = dados_df[0].str.replace("10.","").str.replace("9.","").str.replace("8.","").str.replace("7.","").str.replace("6.","").str.replace("5.","").str.replace("4.","").str.replace("3.","").str.replace("2.","").replace("1.","")
         
+        # Transformando os dados do dataframe em lista
         i = 0
         range = len(dados_df)
-        
         dados = []
-        
         
         while i < range:
             if dados_df[i] != "":
@@ -32,8 +33,9 @@ with st.form(key='Texto para csv'):
             else:
                 i += 1
         
+        # 
+        
         dados1 = []
-        dados2 = []
         j = 0
         range2 = len(dados)
         print(range2)
@@ -45,26 +47,36 @@ with st.form(key='Texto para csv'):
                 dados1.append(dados[j])
                 j += 1
         
+        # Separando e criando novas listas 
         k = 0
         dados2 = []
         dados3 = []
         
         range2 = len(dados1)
         while k < range2:
-            if dados1[k].count('*') == 2:     
-                dados3.append(dados1[k])
-                dados2.append("")
-                k += 1
+            if k < len(dados1) and dados1[k].count('*') == 2:
+                if dados3:  # Verifique se há itens na lista dados3
+                    dados3.insert(len(dados3) - 1, dados1[k])
+                    k +=1
+                else:  # Se a lista estiver vazia, apenas insere normalmente
+                    dados3.append(dados1[k])
+                    dados2.append("")
+                    k += 1
             else:
-                dados2.append(dados1[k])
+                dados2.append(dados1[k] if k < len(dados1) else "")
                 dados3.append("")
                 k += 1
+
+        w = 0
         
-        print(f'{dados2}')
-        print(f'{dados3}')
+        dados4 = []
         
-        df2 = pd.DataFrame(dados2)
-        df3 = pd.DataFrame(dados3)
+        while w < len(dados2):
+            dados4.append(dados3[w])
+            w += 1
+            
+        #df2 = pd.DataFrame(dados2)
+        #df4 = pd.DataFrame(dados4)
         
-        testes = pd.DataFrame({'Caso de teste':dados2,'Detalhes':dados3})
+        testes = pd.DataFrame({'Caso de teste':dados2,'Detalhes':dados4})
         testes

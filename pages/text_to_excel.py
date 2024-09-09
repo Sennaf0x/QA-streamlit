@@ -33,7 +33,6 @@ with st.form(key='Texto para csv'):
             else:
                 i += 1
         
-        # 
         
         dados1 = []
         j = 0
@@ -56,12 +55,21 @@ with st.form(key='Texto para csv'):
         
         while k < range2:
             if dados1[k].count('*') == 2:
-                    dados3.insert(len(dados3) - 2, dados1[k])
-                    k +=1
-            else:  
+                    dados3.append(dados1[k])
+                    dados2.append("")
+                    k +=1 
+            else:
                     dados2.append(dados1[k])
                     dados3.append("")
                     k += 1
+                    #print(f'{k}° tabela 2: {dados2}\n, tabela 3: {dados3}\n')
+
+
+        df2 = pd.DataFrame(dados2)
+        df3 = pd.DataFrame(dados3)
+        
+        df2
+        df3
 
         w = 0
         dados4 = []
@@ -73,5 +81,5 @@ with st.form(key='Texto para csv'):
         #df2 = pd.DataFrame(dados2)
         #df4 = pd.DataFrame(dados4)
         
-        testes = pd.DataFrame({'Caso de teste':dados2,'Detalhes':dados4})
+        testes = pd.DataFrame({'Caso de teste':dados2,'Detalhes':dados3})
         testes

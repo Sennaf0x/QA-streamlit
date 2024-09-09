@@ -68,8 +68,8 @@ with st.form(key='Texto para csv'):
         df2 = pd.DataFrame(dados2)
         df3 = pd.DataFrame(dados3)
         
-        df2
-        df3
+        #df2
+        #df3
 
         w = 0
         dados4 = []

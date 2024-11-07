@@ -1,0 +1,91 @@
+gherkin,caso de teste
+"Given o usuário acessa a tela de agendamentos
+When a tela é exibida
+Then todos os campos obrigatórios: 'Nome do monitorado / Nome da mãe' 'Data/hora' 'Origem / Tipo do agendamento' 'Motivo do agendamento' 'Status' 'Ações' devem estar visíveis",Validar que todos os campos serão exibidos na tela
+"Given o usuário acessa a tela de agendamentos
+When a tela é carregada
+Then devem ser exibidos de 10 a 50 agendamentos por página",Validar que serão exibidos de 10 a 50 agendamentos por paginação
+"Given existe uma lista de agendamentos com diferentes datas e horas
+When o usuário acessa a tela de agendamentos
+Then as colunas devem ser ordenadas de acordo com a ordem crescente da coluna Data/Hora",Validar se as colunas serão ordenadas de acordo com a ordem crescente da coluna Data/Hora do dia atual
+"Given o usuário acessa a tela de agendamentos
+When a coluna 'Data/Hora' é exibida
+Then a formatação deve ser válida no padrão dd/mm/yyyy - hh24:mi",Validar se a coluna 'Data/Hora' terá formatação válida
+"Given o usuário acessa a tela de agendamentos
+When a coluna 'Status' é exibida
+Then os valores exibidos devem ser válidos: 'Agendado' 'Pré-atendido' 'Em atendimento' 'Não compareceu' 'Remanejado' 'Finalizado'",Validar se a coluna 'Status' permitirá exibir apenas os valores válidos
+"Given um agendamento com status 'Agendado' ou 'Pré-atendido'
+When o usuário acessa a tela de agendamentos
+Then a coluna 'Ação' deve exibir 'Iniciar pré-atendimento'",Validar se caso a coluna 'Status' exiba o status 'Agendado' ou 'Prė-atendido' a coluna 'Ação' exibirá o valor 'Iniciar pré-atendimento'
+"Given um agendamento com status 'Em atendimento'
+When o usuário acessa a tela de agendamentos
+Then a coluna 'Ação' deve exibir 'Continuar atendimento'",Validar se caso na coluna 'Status' seja exibido o status 'Em atendimento' a coluna 'Ação' exibirá o valor 'Continuar atendimento'
+"Given um agendamento com status 'Não compareceu' 'Remanejado' ou 'Finalizado'
+When o usuário acessa a tela de agendamentos
+Then a coluna 'Ação' deve exibir 'Detalhes do agendamento'","Validar se caso a coluna 'Status' exiba o status 'Não compareceu', 'Remanejado' ou 'Finalizado' a coluna 'Ação' exibirá o valor 'Detalhes do agendamento'"
+"Given o usuário acessa a tela de agendamentos
+When a tela é exibida
+Then as opções '+ Encaixe' e '+ Agendamento' devem estar habilitadas",Validar as opções '+ Encaixe' e '+Agendamento' estarão habilitadas
+"Given o usuário acessa a tela de agendamentos
+When o campo 'Origem / Tipo de agendamento' é exibido
+Then deve conter os valores: 'Via serviço' ou 'via evento' e 'Padrão' ou 'Encaixe'",Validar se o campo 'Origem / Tipo de agendamento' exibiram os seguintes valores
+"Given o usuário acessa a tela de agendamentos
+When a coluna 'Motivos de agendamento' é exibida
+Then deve conter um dos seguintes valores: 'Administração' 'Associação de dispositivo' 'Desativação' 'Desassociação temporária' 'Implantação de novo monitorado' 'Manutenção' 'Manutenção solicitada pelo SEAP'",Validar se a coluna 'Motivos de agendamento' exibirá um dos seguintes valores válidos
+"Given o usuário acessa a tela de agendamentos
+When a tela é carregada
+Then devem ser exibidos os campos 'Filtro por nome do monitorado ou nome da mãe' 'Filtro por data de agendamento' 'Filtro por motivo de agendamento' 'Filtro por Tipo de agendamento' 'Filtro por Status'",Validar se os campos de filtros serão exibidos
+"Given o usuário acessa a tela de agendamentos
+When o valor da coluna 'Motivo' é exibido
+Then deve ser validado conforme especificação do sistema",Validar se caso o valor da coluna 'Motivo'
+"Given o usuário acessa a tela de 'Cadastrar agendamento'
+When o usuário preenche os dados e cadastra um agendamento
+Then a coluna 'Origem / Tipo de agendamento' deve ser 'Via serviço / Padrão'",Validar se ao usuário cadastrar um agendamento através da tela de 'Cadastrar agendamento' o valor da coluna de 'Origem / Tipo de agendamento' será 'Via serviço / Padrão'
+"Given o usuário acessa a tela de 'Tratar eventos'
+When o usuário preenche os dados e cadastra um agendamento
+Then a coluna 'Origem / Tipo de agendamento' deve ser 'Via evento / Padrão'",Validar se ao usuário cadastrar um agendamento através da tela de 'Tratar eventos' o valor da coluna de 'Origem / Tipo de agendamento' será 'Via evento / Padrão'
+"Given o usuário acessa a tela de 'Cadastrar agendamento'
+When o usuário preenche os dados de um agendamento do dia corrente
+Then a coluna 'Origem / Tipo de agendamento' deve ser 'Via serviço / Encaixe'",Validar se caso o usuário cadastrar um agendamento de um monitorado no dia corrente o valor da coluna 'Origem / Tipo de agendamento' será 'Via serviço / Encaixe'
+"Given o usuário está na tela de agendamentos
+When o usuário seleciona '+ Encaixe'
+Then deve ser redirecionado para a tela de cadastrar agendamento - Encaixe",Validar se ao usuário selecionar a opção de '+ Encaixe' será redirecionado para tela de cadastrar agendamento - Encaixe
+"Given o usuário está na tela de agendamentos
+When o usuário seleciona '+ Agendamento'
+Then deve ser redirecionado para a tela de cadastrar agendamento - Padrão",Validar se ao usuário selecionar a opção de '+ Agendamento' será redirecionado para tela de cadastrar agendamento - Padrão
+"Given o usuário está na tela de 'Listar agendamentos'
+When o usuário pesquisa por nome do monitorado ou nome da mãe
+Then o filtro deve exibir resultados válidos",Validar se caso o usuário realize uma busca no campo 'Pesquisar por nome do monitorado ou nome da mãe' o filtro exibirá resultados válidos para seleção
+"Given o usuário acessa a tela de 'Listar agendamentos'
+When o usuário tenta digitar no campo 'Pesquisar por nome do monitorado ou nome da mãe'
+Then o campo deve permitir no máximo 100 caracteres",Validar se o campo 'Pesquisar por nome do monitorado ou nome da mãe' permitirá somente 100 caracteres
+"Given o usuário busca e seleciona um monitorado
+When o resultado é exibido
+Then a opção 'Limpar pesquisa' deve aparecer ao lado do nome do monitorado selecionado",Validar se após realizar a buscar e selecionar um monitorado no campo 'Pesquisar por nome do monitorado ou nome da mãe' a opção de 'Limpar pesquisa' será exibida junto do nome do monitorado selecionado
+"Given o usuário fez uma pesquisa mas agora quer limpar
+When o usuário seleciona 'Limpar pesquisa'
+Then os valores devem ser exibidos conforme os filtros configurados na tela 'Listar agendamentos'",Validar se ao usuário selecionar a opção 'Limpar pesquisa' serão exibidos os valores na tela de 'Listar agendamento' de acordo com os filtros configurados
+"Given o usuário acessa a tela de 'Listar agendamentos'
+When o filtro por data de agendamento é exibido
+Then a data corrente deve ser carregada inicialmente",Validar se o filtro carrega inicialmente a data corrente
+"Given o usuário acessa a tela de 'Listar agendamentos'
+When a data é exibida
+Then a formatação deve ser dd/mm/yyyy",Validar se a formatação da data será dd/mm/yyyy
+"Given o usuário acessa a tela de 'Listar agendamentos'
+When o usuário tenta filtrar por datas
+Then deve ser possível filtrar por datas anteriores e posteriores ao dia corrente",Validar se será possível filtrar por datas antes e depois do dia corrente
+"Given o usuário acessa a tela de 'Listar agendamentos'
+When o filtro por motivo de agendamento é exibido
+Then deve selecionar todos os motivos válidos",Validar se inicialmente o filtro selecionarão todos os motivos
+"Given o usuário acessa a tela de 'Listar agendamentos'
+When o filtro por tipo de agendamento é exibido
+Then deve selecionar todos os tipos de agendamento",Validar se inicialmente o filtro selecionarão todos os tipos de agendamentos
+"Given o usuário acessa a tela de 'Listar agendamentos'
+When o filtro por status de agendamento é exibido
+Then deve selecionar todos os tipos de agendamentos",Validar se inicialmente o filtro selecionarão todos os tipos de agendamentos
+"Given o usuário acessa a tela de 'Agendamentos'
+When não existem agendamentos cadastrados
+Then deve ser exibida a mensagem 'Não há agendamentos'",Validar se caso o usuário acesse a tela de 'Agendamentos' sem agendamentos cadastrados uma mensagem será exibida na tela
+"Given o usuário realiza uma busca na tela de 'Listar agendamentos'
+When nenhuma correspondência é encontrada
+Then deve ser exibida a mensagem 'Não há agendamentos'",Validar se caso o usuário realize uma busca e não sejam exibidos resultados uma mensagem será exibida

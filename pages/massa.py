@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from io import BytesIO, StringIO 
 from openai import OpenAI
 import json
 import os
@@ -18,7 +19,11 @@ if 'df' not in st.session_state:
 if 'resposta' not in st.session_state:
     st.session_state.resposta = pd.DataFrame(columns=["Caso de tese", "Descrição", "Gherkin"])
 
-    
+#if 'nome' not in st.session_state:
+#    st.session_state.nome = ""
+
+if 'detalhes' not in st.session_state:
+    st.session_state.detalhes = ""
 
 def reset_dataframe():
 
@@ -218,7 +223,7 @@ def ask_openai(mensagem):
     try:
         print("Iniciando chat")
         completion = client.chat.completions.create(
-            model="gpt-4-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
@@ -239,12 +244,14 @@ def ask_openai(mensagem):
                                     onde: 
                                     'caso de teste' = Caso de teste da planilha
                                     'gherkin' = O passo a passo no padrão gherkin para o caso de teste da planilha.
+                                    
+                                    É imprescindivel que a resposta seja somente o arquivo json!
                                 ''')
                 }
             ],
 
             temperature=1,
-            max_tokens=4000,
+            max_tokens=10000,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0
@@ -252,9 +259,11 @@ def ask_openai(mensagem):
             )
         
         answer = completion.choices[0].message.content
+        answer = answer.replace('`','').replace('json','')
         print(f"answer: {answer}")
         #resposta_json = json.dumps(answer, ensure_ascii=False)
         #print(f"resposta_json: {resposta_json}")
+        
         return answer
     
     except json.JSONDecodeError as e:
@@ -270,19 +279,19 @@ with col1:
         with st.form(key='revisar_casos_form'):
             st.write('''<h1 class="header">Faça o upload dos casos de testes</h1>''', unsafe_allow_html=True)
             dados = st.file_uploader("Insira o arquivo abaixo:", type=["xlsx"])
+            #st.session_state.nome = st.text_input("Digite o nome do dataframe")
             
             submit_button = st.form_submit_button(label='Submeter')
 
         if submit_button:
             df = pd.read_excel(dados)
             st.dataframe(df)
-            json_df = df.to_json(orient='records',force_ascii=False,lines=True)
+            st.session_state.detalhes = df["Detalhes"]
+            
+            json_df = df.to_json(orient='records',force_ascii=True,lines=True)
             resposta = ask_openai(json_df)
-            #resposta = resposta.replace('<','').replace('>','',',').strip()
             st.session_state.resposta = resposta
             print(f"Resposta do chat: {st.session_state.resposta}")
-            #json_resposta = json.loads(resposta).replace('\n','').replace('[','').replace(']','')
-            #print(f"json_resposta: {json_resposta}")
             
 with col2:
     with st.container():
@@ -296,5 +305,16 @@ with col2:
         else:
             st.write('''<h1 class="header mag">Planilha preenchida</h1>
                     ''', unsafe_allow_html=True)
-            df_novo = pd.read_json(st.session_state.resposta)
-            st.dataframe(df_novo)      
+            json_io = StringIO(st.session_state.resposta)
+            df_novo = pd.read_json(json_io)
+            
+            detalhes = resposta
+            #gherkin = df_novo["gherkin"].str.replace(",","").str.replace("  ","\n").str.replace(",  ","\n")
+            gherkin = df_novo["gherkin"].str.replace(",","").str.replace("  ","\n", regex=False)
+            casos_de_teste = df_novo["caso de teste"]
+            df_final = pd.concat([casos_de_teste,st.session_state.detalhes, gherkin],axis=1)
+            
+            st.dataframe(df_final)
+            
+            #csv = df_final.to_csv(index=False,encoding='utf-8')
+            #st.download_button(label="Baixar CSV", data=csv, file_name=f'{st.session_state.nome}.csv',mime='text/csv')

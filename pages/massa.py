@@ -248,7 +248,7 @@ def ask_openai(mensagem):
                                     É imprescindivel que a resposta seja somente o arquivo json!
                                         [
                                             '<caso de teste>':'caso de teste reescrito',
-                                            '<gherkin>':'gherkin gerado pela IA'
+                                            '<gherkin>':'gherkin gerado com qyebra de linha (Given\n When\n Then)'
                                         ]
                                 ''')
                 }

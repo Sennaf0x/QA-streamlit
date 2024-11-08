@@ -246,6 +246,10 @@ def ask_openai(mensagem):
                                     'gherkin' = O passo a passo no padrão gherkin para o caso de teste da planilha.
                                     
                                     É imprescindivel que a resposta seja somente o arquivo json!
+                                        [{
+                                            '<caso de teste>':'caso de teste reescrito',
+                                            '<gherkin>':'gherkin gerado pela IA'
+                                        }]
                                 ''')
                 }
             ],
